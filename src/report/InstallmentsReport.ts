@@ -1,3 +1,4 @@
+import { AccountType } from '../account/AccountType'
 import { Movement } from '../movement/Movement'
 import { Month } from '../shared/Month'
 
@@ -32,13 +33,17 @@ export class InstallmentsReport implements ReportGenerator {
     return movementsByCategory
   }
 
-  generateReport(movements: Movement[]): Report {
+  generateReport(movements: Movement[], year?: number): Report {
     const report = new Report()
+    const installmentsMovements = movements.filter(
+      (movement) =>
+        movement.account.type === AccountType.CREDIT && movement.date.getFullYear() === year,
+    )
 
-    const movementsByMonth = this.groupMovementsByMonth(movements)
+    const movementsByMonth = this.groupMovementsByMonth(installmentsMovements)
 
-    movementsByMonth.forEach((movements, month) => {
-      const movementsByCategory = this.groupMovementsByCategory(movements)
+    movementsByMonth.forEach((monthMovements, month) => {
+      const movementsByCategory = this.groupMovementsByCategory(monthMovements)
 
       const reportItem = new ReportItem()
 

@@ -1,4 +1,4 @@
-interface Constructor {
+export interface Constructor {
   name: string
   lastName: string
   email?: string

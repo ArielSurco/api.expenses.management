@@ -2,7 +2,7 @@ import { User } from '../user/User'
 
 import { AccountType } from './AccountType'
 
-interface Constructor {
+export interface Constructor {
   name: string
   type: AccountType
   user: User

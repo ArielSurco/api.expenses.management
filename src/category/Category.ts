@@ -1,6 +1,6 @@
 import { User } from '../user/User'
 
-interface Constructor {
+export interface Constructor {
   name: string
   icon: string
   user?: User

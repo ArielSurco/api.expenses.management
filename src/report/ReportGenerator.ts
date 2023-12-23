@@ -3,5 +3,5 @@ import { Movement } from '../movement/Movement'
 import { Report } from './Report'
 
 export interface ReportGenerator {
-  generateReport(movements: Movement[]): Report
+  generateReport(movements: Movement[], year?: number): Report
 }

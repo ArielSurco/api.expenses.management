@@ -4,7 +4,7 @@ import { User } from '../user/User'
 
 import { MovementType } from './MovementType'
 
-interface Constructor {
+export interface Constructor {
   account: Account
   detail: string
   user: User

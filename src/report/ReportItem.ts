@@ -1,4 +1,5 @@
 import { Movement } from '../movement/Movement'
+import { MovementType } from '../movement/MovementType'
 
 export class ReportItem {
   movementsByCategory: Map<string, number>
@@ -15,6 +16,12 @@ export class ReportItem {
 
     this.movementsByCategory.set(category, currentAmount + movementAmount)
 
-    this.total += movementAmount
+    if (movement.type === MovementType.EXPENSE || movement.type === MovementType.TRANSFER) {
+      this.total += movementAmount
+    }
+
+    if (movement.type === MovementType.INCOME) {
+      this.total -= movementAmount
+    }
   }
 }
