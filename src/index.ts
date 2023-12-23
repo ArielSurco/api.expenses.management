@@ -1,5 +1,27 @@
-import { Server } from './server/Server'
+import 'reflect-metadata'
 
-const server = new Server()
+import { AppDataSource } from './data-source'
+import { User } from './user/User'
 
-server.init()
+AppDataSource.initialize()
+  .then(async () => {
+    console.log('Inserting a new user into the database...')
+    const user = new User({
+      name: 'Timber',
+      lastName: 'Saw',
+      email: 'example@gmail.com',
+      phone: '1146853548',
+      password: '123456',
+    })
+
+    await AppDataSource.manager.save(user)
+    console.log('Saved a new user with id: ' + user.id)
+
+    console.log('Loading users from the database...')
+    const users = await AppDataSource.manager.find(User)
+
+    console.log('Loaded users: ', users)
+
+    console.log('Here you can setup and run express / fastify / any other framework.')
+  })
+  .catch((error) => console.log(error))

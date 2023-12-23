@@ -1,8 +1,12 @@
-.vscode
-node_modules
-dist
+.idea/
+.vscode/
+node_modules/
+build/
+dist/
+tmp/
+temp/
 
+.env
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
-.env
