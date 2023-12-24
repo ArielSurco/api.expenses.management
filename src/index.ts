@@ -4,16 +4,13 @@ import { AppDataSource } from './data-source'
 import { User } from './user/User'
 import { Account } from './account/Account'
 import { Category } from './category/Category'
+import { Movement } from './movement/Movement'
 
 AppDataSource.initialize()
   .then(async () => {
-    const user = await AppDataSource.manager.findOne(User, {
-      where: {
-        id: 1,
-      },
-    })
+    const users = await AppDataSource.manager.find(User)
 
-    console.log(user)
+    console.log(users)
 
     const accounts = await AppDataSource.manager.find(Account)
 
@@ -22,5 +19,11 @@ AppDataSource.initialize()
     const categories = await AppDataSource.manager.find(Category)
 
     console.log(categories)
+
+    const movements = await AppDataSource.manager.find(Movement, {
+      relations: ['account', 'category', 'user'],
+    })
+
+    console.log(movements)
   })
   .catch((error) => console.log(error))

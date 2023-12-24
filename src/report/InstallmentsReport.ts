@@ -25,6 +25,8 @@ export class InstallmentsReport implements ReportGenerator {
     const movementsByCategory = new Map<string, Movement[]>()
 
     movements.forEach((movement) => {
+      if (!movement.category) return
+
       const currentMovements = movementsByCategory.get(movement.category.name) ?? []
 
       movementsByCategory.set(movement.category.name, [...currentMovements, movement])
@@ -37,7 +39,7 @@ export class InstallmentsReport implements ReportGenerator {
     const report = new Report()
     const installmentsMovements = movements.filter(
       (movement) =>
-        movement.account.type === AccountType.CREDIT && movement.date.getFullYear() === year,
+        movement.account?.type === AccountType.CREDIT && movement.date.getFullYear() === year,
     )
 
     const movementsByMonth = this.groupMovementsByMonth(installmentsMovements)
