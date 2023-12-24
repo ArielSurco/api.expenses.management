@@ -3,6 +3,7 @@ import 'reflect-metadata'
 import { AppDataSource } from './data-source'
 import { User } from './user/User'
 import { Account } from './account/Account'
+import { Category } from './category/Category'
 
 AppDataSource.initialize()
   .then(async () => {
@@ -14,13 +15,12 @@ AppDataSource.initialize()
 
     console.log(user)
 
-    const account = await AppDataSource.manager.findOne(Account, {
-      where: {
-        id: 1,
-      },
-      relations: ['user'],
-    })
+    const accounts = await AppDataSource.manager.find(Account)
 
-    console.log(account?.user)
+    console.log(accounts)
+
+    const categories = await AppDataSource.manager.find(Category)
+
+    console.log(categories)
   })
   .catch((error) => console.log(error))

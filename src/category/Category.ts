@@ -1,19 +1,30 @@
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+
 import { User } from '../user/User'
 
 export interface Constructor {
-  name: string
-  icon: string
-  user?: User
+  name?: string
+  icon?: string
+  user?: User | null
 }
 
+@Entity()
 export class Category {
-  name: string
-  icon: string
-  user: User | null
+  @PrimaryGeneratedColumn()
+  id?: number
 
-  constructor({ name, icon, user }: Constructor) {
-    this.name = name
-    this.icon = icon
-    this.user = user ?? null
+  @Column()
+  name: string
+
+  @Column()
+  icon: string
+
+  @ManyToOne(() => User, { nullable: true })
+  user?: User
+
+  constructor({ name, icon, user }: Constructor = {}) {
+    this.name = name ?? ''
+    this.icon = icon ?? ''
+    this.user = user ?? undefined
   }
 }

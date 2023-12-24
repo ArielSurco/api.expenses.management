@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm'
 
 import { User } from './user/User'
 import { Account } from './account/Account'
+import { Category } from './category/Category'
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: 'finance-app-test',
   synchronize: true,
   logging: false,
-  entities: [User, Account],
+  entities: [User, Account, Category],
   migrations: [],
   subscribers: [],
 })
