@@ -2,6 +2,7 @@ import 'reflect-metadata'
 import { UserRepository } from './user/UserRepository'
 import { AppDataSource } from './data-source'
 import { AccountRepository } from './account/AccountRepository'
+import { CategoryRepository } from './category/CategoryRepository'
 
 // import { User } from './user/User'
 // import { Account } from './account/Account'
@@ -14,6 +15,7 @@ AppDataSource.initialize()
 
     const userRepository = new UserRepository()
     const accountRepository = new AccountRepository()
+    const categoryRepository = new CategoryRepository()
 
     const user = await userRepository.findById(1)
 
@@ -25,9 +27,9 @@ AppDataSource.initialize()
 
     console.log(userAccounts)
 
-    // const categories = await AppDataSource.manager.find(Category)
+    const categories = await categoryRepository.findAllByUserId(user.id)
 
-    // console.log(categories)
+    console.log(categories)
 
     // const movements = await AppDataSource.manager.find(Movement, {
     //   relations: ['account', 'category', 'user'],
