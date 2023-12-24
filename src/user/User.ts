@@ -19,7 +19,9 @@ export class User {
   @Column()
   lastName: string
 
-  @Column()
+  @Column({
+    unique: true,
+  })
   email: string
 
   @Column()
@@ -37,6 +39,6 @@ export class User {
     this.email = email ?? ''
     this.phone = phone ?? ''
     this.password = password ?? ''
-    this.isActive = false
+    this.isActive = true
   }
 }

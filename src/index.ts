@@ -1,29 +1,34 @@
 import 'reflect-metadata'
-
+import { UserRepository } from './user/UserRepository'
 import { AppDataSource } from './data-source'
-import { User } from './user/User'
-import { Account } from './account/Account'
-import { Category } from './category/Category'
-import { Movement } from './movement/Movement'
+
+// import { User } from './user/User'
+// import { Account } from './account/Account'
+// import { Category } from './category/Category'
+// import { Movement } from './movement/Movement'
 
 AppDataSource.initialize()
   .then(async () => {
-    const users = await AppDataSource.manager.find(User)
+    console.log('Database connected')
 
-    console.log(users)
+    const userRepository = new UserRepository()
 
-    const accounts = await AppDataSource.manager.find(Account)
+    const user = await userRepository.findById(1)
 
-    console.log(accounts)
+    console.log(user)
 
-    const categories = await AppDataSource.manager.find(Category)
+    // const accounts = await AppDataSource.manager.find(Account)
 
-    console.log(categories)
+    // console.log(accounts)
 
-    const movements = await AppDataSource.manager.find(Movement, {
-      relations: ['account', 'category', 'user'],
-    })
+    // const categories = await AppDataSource.manager.find(Category)
 
-    console.log(movements)
+    // console.log(categories)
+
+    // const movements = await AppDataSource.manager.find(Movement, {
+    //   relations: ['account', 'category', 'user'],
+    // })
+
+    // console.log(movements)
   })
   .catch((error) => console.log(error))
