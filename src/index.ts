@@ -3,11 +3,7 @@ import { UserRepository } from './user/UserRepository'
 import { AppDataSource } from './data-source'
 import { AccountRepository } from './account/AccountRepository'
 import { CategoryRepository } from './category/CategoryRepository'
-
-// import { User } from './user/User'
-// import { Account } from './account/Account'
-// import { Category } from './category/Category'
-// import { Movement } from './movement/Movement'
+import { MovementRepository } from './movement/MovementRepository'
 
 AppDataSource.initialize()
   .then(async () => {
@@ -16,6 +12,7 @@ AppDataSource.initialize()
     const userRepository = new UserRepository()
     const accountRepository = new AccountRepository()
     const categoryRepository = new CategoryRepository()
+    const movementRepository = new MovementRepository({ relations: ['account', 'category'] })
 
     const user = await userRepository.findById(1)
 
@@ -31,10 +28,8 @@ AppDataSource.initialize()
 
     console.log(categories)
 
-    // const movements = await AppDataSource.manager.find(Movement, {
-    //   relations: ['account', 'category', 'user'],
-    // })
+    const movements = await movementRepository.findAllByUserId(user.id)
 
-    // console.log(movements)
+    console.log(movements)
   })
   .catch((error) => console.log(error))
