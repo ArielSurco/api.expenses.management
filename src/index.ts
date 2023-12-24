@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import { UserRepository } from './user/UserRepository'
 import { AppDataSource } from './data-source'
+import { AccountRepository } from './account/AccountRepository'
 
 // import { User } from './user/User'
 // import { Account } from './account/Account'
@@ -12,14 +13,17 @@ AppDataSource.initialize()
     console.log('Database connected')
 
     const userRepository = new UserRepository()
+    const accountRepository = new AccountRepository()
 
     const user = await userRepository.findById(1)
 
     console.log(user)
 
-    // const accounts = await AppDataSource.manager.find(Account)
+    if (!user || !user.id) return
 
-    // console.log(accounts)
+    const userAccounts = await accountRepository.findAllByUserId(user.id)
+
+    console.log(userAccounts)
 
     // const categories = await AppDataSource.manager.find(Category)
 
